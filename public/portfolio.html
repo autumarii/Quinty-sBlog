@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art Portfolio | Qunity's Space</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">Qunity<span>.space</span></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="portfolio.html" class="active">Art Portfolio</a></li>
+          <li><a href="admin.html" class="btn-admin">Creator Hub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Portfolio Content -->
+  <main>
+    <section class="fade-in">
+      <div style="text-align: center; margin-bottom: 3.5rem;">
+        <span class="hero-subtitle" style="font-size: 1.1rem; letter-spacing: 0.1em; text-transform: uppercase;">Visual Gallery</span>
+        <h2>Art Portfolio</h2>
+        <p style="max-width: 600px; margin: 0 auto;">
+          A collection of digital drawings, canvas experiments, and sketching logs. Filter by medium below to explore different styles.
+        </p>
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-controls" id="filter-container">
+        <button class="filter-btn active" data-filter="all">All Pieces</button>
+        <!-- Categories will be generated dynamically or predefined -->
+      </div>
+
+      <!-- Portfolio Grid -->
+      <div class="portfolio-grid" id="portfolio-grid">
+        <p class="loading-text" style="grid-column: 1/-1; text-align: center; color: var(--color-muted); padding: 3rem 0;">
+          Gathering the canvas portfolio...
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="art-lightbox">
+    <button class="lightbox-close" id="lightbox-close-btn">&times;</button>
+    <div class="lightbox-content">
+      <div class="lightbox-image-wrapper">
+        <img class="lightbox-image" id="lightbox-img" src="" alt="Art Piece">
+      </div>
+      <div class="lightbox-details">
+        <h3 class="lightbox-title" id="lightbox-title">Artwork Title</h3>
+        <div class="lightbox-meta">
+          <div class="lightbox-meta-label">Medium</div>
+          <div class="lightbox-meta-value" id="lightbox-medium">Oil on Canvas</div>
+          <div class="lightbox-meta-label">Completed</div>
+          <div class="lightbox-meta-value" id="lightbox-date">2026-05-12</div>
+        </div>
+        <p class="lightbox-description" id="lightbox-description">This is the backstory or description of the art piece...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Qunity<span>.space</span></div>
+      <p>Made with love, canvas, and code.</p>
+      <div class="copyright">&copy; 2026 Qunity. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/portfolio.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Qunity's Space</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">Qunity<span>.space</span></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="portfolio.html">Art Portfolio</a></li>
+          <li><a href="admin.html" class="btn-admin active">Creator Hub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Creator Hub Content -->
+  <main>
+    <section class="fade-in">
+      <div class="admin-container style-admin">
+        <h2 style="margin-bottom: 0.5rem;">Creator Hub</h2>
+        <p style="margin-bottom: 2rem;">Publish new articles to the blog or upload new artwork to your portfolio.</p>
+
+        <!-- Tabs -->
+        <div class="admin-tabs">
+          <button class="admin-tab active" data-tab="tab-blog">Publish Article</button>
+          <button class="admin-tab" data-tab="tab-art">Upload Art Piece</button>
+        </div>
+
+        <!-- Blog Tab Content -->
+        <div id="tab-blog" class="tab-content active glass-card">
+          <form id="blog-form" enctype="multipart/form-data">
+            <div class="grid-2">
+              <div class="form-group">
+                <label for="blog-title" class="form-label">Article Title *</label>
+                <input type="text" id="blog-title" name="title" class="form-control" placeholder="e.g. Exploring the colors of dusk" required>
+              </div>
+              <div class="form-group">
+                <label for="blog-subtitle" class="form-label">Subtitle</label>
+                <input type="text" id="blog-subtitle" name="subtitle" class="form-control" placeholder="e.g. A review of my new oil medium painting session">
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label for="blog-category" class="form-label">Category</label>
+                <select id="blog-category" name="category" class="form-control">
+                  <option value="Art Journal">Art Journal</option>
+                  <option value="Creative Process">Creative Process</option>
+                  <option value="Personal Blog">Personal Blog</option>
+                  <option value="Tutorials">Tutorials</option>
+                  <option value="Musings">Musings</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="blog-tags" class="form-label">Tags (comma-separated)</label>
+                <input type="text" id="blog-tags" name="tags" class="form-control" placeholder="e.g. oil painting, sunset, color theory">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Cover Image *</label>
+              <div class="file-dropzone" id="blog-dropzone">
+                <div class="file-dropzone-icon">📷</div>
+                <p>Drag & drop article cover here, or <strong>browse files</strong></p>
+                <span style="font-size: 0.8rem; color: var(--color-muted);">Supports JPG, PNG, WEBP (Max 10MB)</span>
+                <input type="file" id="blog-image-input" name="coverImage" accept="image/*" required>
+              </div>
+              <div class="preview-container" id="blog-preview-container">
+                <img id="blog-preview-img" class="image-preview" src="#" alt="Preview">
+                <button type="button" class="remove-preview-btn" id="blog-remove-preview">×</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="blog-content" class="form-label">Content (HTML or plain text) *</label>
+              <textarea id="blog-content" name="content" class="form-control" style="min-height: 250px;" placeholder="Write your thoughts here..." required></textarea>
+            </div>
+
+            <div style="text-align: right; margin-top: 2rem;">
+              <button type="submit" class="btn btn-primary" id="blog-submit-btn">
+                <span>Publish Article</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Portfolio Tab Content -->
+        <div id="tab-art" class="tab-content glass-card">
+          <form id="art-form" enctype="multipart/form-data">
+            <div class="grid-2">
+              <div class="form-group">
+                <label for="art-title" class="form-label">Artwork Title *</label>
+                <input type="text" id="art-title" name="title" class="form-control" placeholder="e.g. Whisper of the Waves" required>
+              </div>
+              <div class="form-group">
+                <label for="art-medium" class="form-label">Medium *</label>
+                <input type="text" id="art-medium" name="medium" class="form-control" placeholder="e.g. Digital, Oil on Canvas, Watercolor, Pencil" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="art-date" class="form-label">Creation Date</label>
+              <input type="date" id="art-date" name="date" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Artwork File *</label>
+              <div class="file-dropzone" id="art-dropzone">
+                <div class="file-dropzone-icon">🎨</div>
+                <p>Drag & drop artwork here, or <strong>browse files</strong></p>
+                <span style="font-size: 0.8rem; color: var(--color-muted);">Supports JPG, PNG, WEBP, GIF (Max 10MB)</span>
+                <input type="file" id="art-image-input" name="artImage" accept="image/*" required>
+              </div>
+              <div class="preview-container" id="art-preview-container">
+                <img id="art-preview-img" class="image-preview" src="#" alt="Preview">
+                <button type="button" class="remove-preview-btn" id="art-remove-preview">×</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="art-description" class="form-label">Description / Story (optional)</label>
+              <textarea id="art-description" name="description" class="form-control" style="min-height: 120px;" placeholder="Tell the stories, inspiration, or thoughts behind this art piece..."></textarea>
+            </div>
+
+            <div style="text-align: right; margin-top: 2rem;">
+              <button type="submit" class="btn btn-primary" id="art-submit-btn">
+                <span>Upload Art Piece</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Qunity<span>.space</span></div>
+      <p>Made with love, canvas, and code.</p>
+      <div class="copyright">&copy; 2026 Qunity. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

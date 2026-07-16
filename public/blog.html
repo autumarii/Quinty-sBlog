@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog & Journal | Qunity's Space</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">Qunity<span>.space</span></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="blog.html" class="active">Blog</a></li>
+          <li><a href="portfolio.html">Art Portfolio</a></li>
+          <li><a href="admin.html" class="btn-admin">Creator Hub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Blog Page Content -->
+  <main>
+    <!-- 1. FEED CONTAINER -->
+    <div id="blog-feed-container" class="fade-in">
+      <section style="padding-bottom: 2rem; text-align: center;">
+        <span class="hero-subtitle" style="font-size: 1.1rem; letter-spacing: 0.1em; text-transform: uppercase;">Thoughts & Musings</span>
+        <h2>Journal & Articles</h2>
+        <p style="max-width: 600px; margin: 0 auto;">
+          Writing about color theory, oil painting tutorials, digital sketches, creative block, and other journal entries.
+        </p>
+      </section>
+
+      <!-- Search & Filters -->
+      <section style="padding-top: 0; padding-bottom: 2rem;">
+        <div class="search-container">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-bar" class="search-input" placeholder="Search articles by title, content, or tags...">
+        </div>
+        <div class="filter-controls" id="tag-filters">
+          <button class="filter-btn active" data-tag="all">All Articles</button>
+          <!-- Dynamic tags will be generated here -->
+        </div>
+      </section>
+
+      <!-- Grid list -->
+      <section style="padding-top: 0;">
+        <div class="grid-3" id="blog-grid">
+          <p class="loading-text" style="grid-column: 1/-1; text-align: center; color: var(--color-muted);">
+            Retrieving blog index...
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- 2. ARTICLE READER CONTAINER -->
+    <div id="blog-reader-container" class="fade-in" style="display: none;">
+      <section class="article-view-container">
+        <!-- Back Button -->
+        <a href="blog.html" class="back-btn" id="back-to-feed-btn">&larr; Back to Articles</a>
+        
+        <article>
+          <header class="article-header">
+            <span class="article-category" id="article-view-category">Creative Process</span>
+            <h1 class="article-title" id="article-view-title">Article Title</h1>
+            <div class="article-meta">
+              <span id="article-view-date">July 16, 2026</span>
+              <span>&bull;</span>
+              <span id="article-view-reading-time">5 min read</span>
+            </div>
+          </header>
+
+          <img class="article-hero-image" id="article-view-image" src="" alt="Hero Image">
+
+          <div class="article-body" id="article-view-content">
+            <!-- Article content will load here dynamically -->
+          </div>
+
+          <div class="article-tags" id="article-view-tags">
+            <!-- Tags will load here -->
+          </div>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Qunity<span>.space</span></div>
+      <p>Made with love, canvas, and code.</p>
+      <div class="copyright">&copy; 2026 Qunity. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/blog.js"></script>
+</body>
+</html>

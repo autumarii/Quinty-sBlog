@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qunity's Space | Personal Blog & Art Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">Qunity<span>.space</span></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="portfolio.html">Art Portfolio</a></li>
+          <li><a href="admin.html" class="btn-admin">Creator Hub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section fade-in">
+      <div class="hero-content">
+        <span class="hero-subtitle">Visual Artist & Creative Writer</span>
+        <h1>Welcome to My Creative Sanctuary</h1>
+        <p class="hero-description">
+          A space where lines, pigments, and paragraphs intertwine. Explore my collection of oil paintings, digital art sessions, and creative written musings on art theory and lifestyle.
+        </p>
+        <div class="hero-cta">
+          <a href="portfolio.html" class="btn btn-primary">View Art Gallery</a>
+          <a href="blog.html" class="btn btn-secondary">Read My Blog</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Creations Section (Art Highlight) -->
+    <section id="recent-art" class="fade-in">
+      <div class="section-header">
+        <h2 class="section-title">Recent <span>Creations</span></h2>
+        <a href="portfolio.html" class="btn-admin">View Full Portfolio &rarr;</a>
+      </div>
+      <div class="portfolio-grid" id="home-art-grid">
+        <!-- Rendered dynamically via JavaScript -->
+        <p class="loading-text" style="grid-column: 1/-1; text-align: center; color: var(--color-muted);">Brushing the canvas...</p>
+      </div>
+    </section>
+
+    <!-- Latest Articles Section (Blog Highlight) -->
+    <section id="latest-posts" class="fade-in" style="background: rgba(255, 255, 255, 0.01); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+      <div class="section-header">
+        <h2 class="section-title">Latest <span>Articles</span></h2>
+        <a href="blog.html" class="btn-admin">Read All Articles &rarr;</a>
+      </div>
+      <div class="grid-3" id="home-blog-grid">
+        <!-- Rendered dynamically via JavaScript -->
+        <p class="loading-text" style="grid-column: 1/-1; text-align: center; color: var(--color-muted);">Ink is flowing...</p>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="fade-in">
+      <div class="grid-2 glass-card">
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+          <h2 style="margin-bottom: 1rem;">Behind the Brush & Keyboard</h2>
+          <p style="margin-bottom: 1.5rem;">
+            Hello, I'm Qunity. I am a self-taught visual artist and writer. My art explores light, atmospheric colors, and human intimacy with nature, primarily utilizing oils, digital rendering, and ink sketchbooks. 
+          </p>
+          <p style="margin-bottom: 2rem;">
+            Through my blog, I write journal logs documenting my artistic trials, tutorials to share my learnings, and creative reviews. This website serves as a living archive of my work and journey.
+          </p>
+          <div>
+            <a href="admin.html" class="btn btn-primary">Go to Creator Hub</a>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center; position: relative;">
+          <!-- Generating abstract placeholder background via CSS -->
+          <div style="width: 100%; height: 350px; border-radius: var(--radius-md); background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.15)); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;">
+            <div style="position: absolute; width: 200px; height: 200px; border-radius: 50%; background: var(--accent-violet); filter: blur(50px); opacity: 0.3; top: 10%; left: 10%;"></div>
+            <div style="position: absolute; width: 180px; height: 180px; border-radius: 50%; background: var(--accent-cyan); filter: blur(50px); opacity: 0.3; bottom: 10%; right: 10%;"></div>
+            <div style="font-family: var(--font-serif); font-size: 5rem; font-style: italic; font-weight: 300; opacity: 0.2; transform: rotate(-15deg); user-select: none;">Qunity</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal for Art Details -->
+  <div class="lightbox" id="art-lightbox">
+    <button class="lightbox-close" id="lightbox-close-btn">&times;</button>
+    <div class="lightbox-content">
+      <div class="lightbox-image-wrapper">
+        <img class="lightbox-image" id="lightbox-img" src="" alt="Art Piece">
+      </div>
+      <div class="lightbox-details">
+        <h3 class="lightbox-title" id="lightbox-title">Artwork Title</h3>
+        <div class="lightbox-meta">
+          <div class="lightbox-meta-label">Medium</div>
+          <div class="lightbox-meta-value" id="lightbox-medium">Oil on Canvas</div>
+          <div class="lightbox-meta-label">Completed</div>
+          <div class="lightbox-meta-value" id="lightbox-date">2026-05-12</div>
+        </div>
+        <p class="lightbox-description" id="lightbox-description">This is the backstory or description of the art piece...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Qunity<span>.space</span></div>
+      <p>Made with love, canvas, and code.</p>
+      <div class="copyright">&copy; 2026 Qunity. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
