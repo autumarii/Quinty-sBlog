@@ -54,22 +54,21 @@
         </div>
 
         <!-- Blog Tab Content -->
-        <div id="tab-blog" class="tab-content glass-card">
+        <div id="tab-blog" class="tab-content glass-card active">
           <form id="blog-form" enctype="multipart/form-data">
-            <div class="grid-2">
-              <div class="form-group">
-                <label for="blog-title" class="form-label">Article Title *</label>
-                <input type="text" id="blog-title" name="title" class="form-control" placeholder="e.g. Exploring the colors of dusk" required>
-              </div>
-              <div class="form-group">
-                <label for="blog-subtitle" class="form-label">Subtitle</label>
-                <input type="text" id="blog-subtitle" name="subtitle" class="form-control" placeholder="e.g. A review of my new oil medium painting session">
-              </div>
+            <div class="form-group">
+              <label for="blog-title" class="form-label">Title *</label>
+              <input type="text" id="blog-title" name="title" class="form-control" placeholder="e.g. Exploring the colors of dusk" required>
+            </div>
+
+            <div class="form-group">
+              <label for="blog-subtitle" class="form-label">Description</label>
+              <input type="text" id="blog-subtitle" name="subtitle" class="form-control" placeholder="1-2 sentences summarizing your article">
             </div>
 
             <div class="grid-2">
               <div class="form-group">
-                <label for="blog-category" class="form-label">Section</label>
+                <label for="blog-category" class="form-label">Article Section</label>
                 <select id="blog-category" name="category" class="form-control">
                   <option value="Dreamscapes">Dreamscapes</option>
                   <option value="Daily Wonders">Daily Wonders</option>
@@ -83,31 +82,17 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label">Cover Image *</label>
-              <div class="file-dropzone" id="blog-dropzone">
-                <div class="file-dropzone-icon">📷</div>
-                <p>Drag & drop article cover here, or <strong>browse files</strong></p>
-                <span style="font-size: 0.8rem; color: var(--color-muted);">Supports JPG, PNG, WEBP (Max 10MB)</span>
-                <input type="file" id="blog-image-input" name="coverImage" accept="image/*" required>
-              </div>
-              <div class="preview-container" id="blog-preview-container">
-                <img id="blog-preview-img" class="image-preview" src="#" alt="Preview">
-                <button type="button" class="remove-preview-btn" id="blog-remove-preview">×</button>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="blog-content" class="form-label">Content *</label>
+              <label for="blog-content" class="form-label">Writing Area *</label>
               <div class="content-editor-wrapper">
                 <div class="content-editor-toolbar">
                   <button type="button" class="inline-img-btn" id="inline-image-btn" title="Insert image at cursor">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                    Insert Image
+                    Upload File
                   </button>
                   <input type="file" id="inline-image-input" accept="image/*" style="display: none;">
-                  <span class="inline-img-hint">Click to add an image anywhere in your article</span>
+                  <span class="inline-img-hint">Insert images anywhere in your article</span>
                 </div>
-                <textarea id="blog-content" name="content" class="form-control content-editor" style="min-height: 300px;" placeholder="Write your thoughts here... Use the Insert Image button to add images anywhere in the article. Images will appear as [img:URL] in the editor and render as actual images when published." required></textarea>
+                <textarea id="blog-content" name="content" class="form-control content-editor" style="min-height: 300px;" placeholder="Write your article here... Use the Upload File button to add images anywhere in the text. Images will appear as [img:URL] and render as actual images when published." required></textarea>
               </div>
             </div>
 

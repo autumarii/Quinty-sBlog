@@ -2,7 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   setupTabs();
-  setupDragAndDrop();
   setupBlogForm();
   setupArtForm();
   setupInlineImages();
@@ -36,81 +35,6 @@ function setupTabs() {
   });
 }
 
-// Drag & Drop Upload mechanics (for blog cover image)
-function setupDragAndDrop() {
-  setupZone('blog-dropzone', 'blog-image-input', 'blog-preview-container', 'blog-preview-img', 'blog-remove-preview');
-
-  function setupZone(dropzoneId, inputId, previewContainerId, previewImgId, removeBtnId) {
-    const dropzone = document.getElementById(dropzoneId);
-    const input = document.getElementById(inputId);
-    const previewContainer = document.getElementById(previewContainerId);
-    const previewImg = document.getElementById(previewImgId);
-    const removeBtn = document.getElementById(removeBtnId);
-
-    if (!dropzone || !input) return;
-
-    dropzone.addEventListener('click', () => {
-      if (document.activeElement !== input) {
-        input.click();
-      }
-    });
-
-    ['dragenter', 'dragover'].forEach(eventName => {
-      dropzone.addEventListener(eventName, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        dropzone.classList.add('dragover');
-      }, false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-      dropzone.addEventListener(eventName, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        dropzone.classList.remove('dragover');
-      }, false);
-    });
-
-    dropzone.addEventListener('drop', (e) => {
-      const dt = e.dataTransfer;
-      const files = dt.files;
-      if (files.length > 0) {
-        input.files = files;
-        handleFileSelection(files[0]);
-      }
-    });
-
-    input.addEventListener('change', () => {
-      if (input.files.length > 0) {
-        handleFileSelection(input.files[0]);
-      }
-    });
-
-    removeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      input.value = '';
-      previewContainer.style.display = 'none';
-      dropzone.style.display = 'block';
-    });
-
-    function handleFileSelection(file) {
-      if (!file.type.startsWith('image/')) {
-        window.showToast('Please upload an image file!', 'error');
-        input.value = '';
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        previewImg.src = e.target.result;
-        dropzone.style.display = 'none';
-        previewContainer.style.display = 'flex';
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-}
-
 // Blog form submission (publish article)
 function setupBlogForm() {
   const blogForm = document.getElementById('blog-form');
@@ -137,7 +61,6 @@ function setupBlogForm() {
       if (response.ok) {
         window.showToast('Article published successfully!', 'success');
         blogForm.reset();
-        document.getElementById('blog-remove-preview').click();
       } else {
         window.showToast(data.error || 'Failed to publish article', 'error');
       }
