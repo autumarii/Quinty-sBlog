@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cozy Corner | Qunity's Space</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-cozycorner">
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">Qunity<span>.space</span></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-trigger active">Articles <span class="arrow">&#9662;</span></a>
+            <ul class="dropdown-menu">
+              <li><a href="dreamscapes.html">Dreamscapes</a></li>
+              <li><a href="dailywonders.html">Daily Wonders</a></li>
+              <li><a href="cozycorner.html" class="active">Cozy Corner</a></li>
+            </ul>
+          </li>
+          <li><a href="portfolio.html">Art Portfolio</a></li>
+          <li><a href="admin.html" class="btn-admin">Creator Hub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="cozy-title-container fade-in">
+      <h1 class="cozy-title">Cozy Corner</h1>
+      <div class="title-circles">
+        <span class="title-circle"></span>
+        <span class="title-circle"></span>
+        <span class="title-circle"></span>
+        <span class="title-circle"></span>
+        <span class="title-circle"></span>
+        <span class="title-circle"></span>
+        <span class="title-circle"></span>
+        <span class="title-circle"></span>
+      </div>
+    </div>
+
+    <!-- Cozy Header Layout (Icon + Tags) -->
+    <section class="fade-in" style="padding-top: 0; padding-bottom: 2rem; display: flex; justify-content: center;">
+      <div class="cozy-header-layout">
+        <div class="cozy-icon">🍰</div>
+        <div class="cozy-content-header">
+          <div class="cozy-buttons">
+            <button class="btn btn-secondary posts-tab-btn active" data-tag="all" style="border-color: var(--color-primary); color: var(--color-primary);">All</button>
+            <div id="cozy-tags-container" style="display: inline-flex; gap: 1rem;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Section -->
+    <section class="fade-in" style="padding-top: 0; padding-bottom: 2rem;">
+      <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem;">Latest</h2>
+      <div class="horizontal-list-container">
+        <div class="horizontal-list" id="cozy-latest-list">
+          <p class="loading-text" style="color: var(--color-muted);">Ink is flowing...</p>
+        </div>
+        <div class="list-arrow">&rarr;</div>
+      </div>
+    </section>
+
+    <!-- Popular Section -->
+    <section class="fade-in" style="padding-top: 0; padding-bottom: 2rem;">
+      <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem;">Popular</h2>
+      <div class="horizontal-list-container">
+        <div class="horizontal-list" id="cozy-popular-list">
+          <p class="loading-text" style="color: var(--color-muted);">Ink is flowing...</p>
+        </div>
+        <div class="list-arrow">&rarr;</div>
+      </div>
+    </section>
+
+    <!-- Showcase Section Post #365 -->
+    <section class="fade-in" style="padding-top: 0;">
+      <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem; text-align: center;">Showcase: Post #365</h2>
+      <div class="showcase-card-split-right" id="cozy-showcase">
+        <p class="loading-text" style="color: var(--color-muted); text-align: center; grid-column: 1/-1;">Brushing the canvas...</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Qunity<span>.space</span></div>
+      <p>Made with love, canvas, and code.</p>
+      <div class="copyright">&copy; 2026 Qunity. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/cozycorner.js"></script>
+</body>
+</html>

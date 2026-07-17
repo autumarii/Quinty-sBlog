@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Wonders | Qunity's Space</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-dailywonders">
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">Qunity<span>.space</span></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-trigger active">Articles <span class="arrow">&#9662;</span></a>
+            <ul class="dropdown-menu">
+              <li><a href="dreamscapes.html">Dreamscapes</a></li>
+              <li><a href="dailywonders.html" class="active">Daily Wonders</a></li>
+              <li><a href="cozycorner.html">Cozy Corner</a></li>
+            </ul>
+          </li>
+          <li><a href="portfolio.html">Art Portfolio</a></li>
+          <li><a href="admin.html" class="btn-admin">Creator Hub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="sun-title-container fade-in">
+      <span class="sun-icon">☀️</span>
+      <h1 class="sun-title">Daily Wonders</h1>
+    </div>
+
+    <!-- Main Sidebar Layout -->
+    <section class="sidebar-layout fade-in" style="padding-top: 0;">
+      <!-- Left Sidebar (Tags) -->
+      <aside>
+        <ul class="sidebar-list" id="dailywonders-sidebar-list">
+          <li class="sidebar-list-header">Navigation</li>
+          <li class="sidebar-list-item"><a href="#" data-tag="all" class="active">#all</a></li>
+          <!-- Dynamic sidebar item tags will be generated here (#1, #2, etc.) -->
+        </ul>
+      </aside>
+
+      <!-- Right Main Feed -->
+      <div class="feed-content">
+        <!-- Latest Section -->
+        <div style="margin-bottom: 3rem;">
+          <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;">Latest</h2>
+          <div class="grid-2" id="dailywonders-latest-grid">
+            <p class="loading-text" style="color: var(--color-muted);">Ink is flowing...</p>
+          </div>
+        </div>
+
+        <!-- Popular Section -->
+        <div>
+          <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;">Popular</h2>
+          <div class="grid-2" id="dailywonders-popular-grid">
+            <p class="loading-text" style="color: var(--color-muted);">Ink is flowing...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Showcase Post #300 -->
+    <section class="fade-in" style="padding-top: 0;">
+      <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem; text-align: center;">Showcase: Post #300</h2>
+      <div class="showcase-card-split-left" id="dailywonders-showcase">
+        <p class="loading-text" style="color: var(--color-muted); text-align: center; grid-column: 1/-1;">Brushing the canvas...</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Qunity<span>.space</span></div>
+      <p>Made with love, canvas, and code.</p>
+      <div class="copyright">&copy; 2026 Qunity. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/dailywonders.js"></script>
+</body>
+</html>

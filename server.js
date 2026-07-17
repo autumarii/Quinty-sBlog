@@ -5,7 +5,7 @@ const fs = require('fs');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 // Enable CORS and body parsing
 app.use(cors());
@@ -120,7 +120,7 @@ app.post('/api/posts', upload.single('coverImage'), (req, res) => {
 
     let slug = generateSlug(title);
     let filePath = path.join(POSTS_DIR, `${slug}.json`);
-    
+
     // De-duplicate slug if file already exists
     let counter = 1;
     while (fs.existsSync(filePath)) {

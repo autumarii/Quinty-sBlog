@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dreamscapes | Qunity's Space</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-dreamscapes">
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">Qunity<span>.space</span></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-trigger active">Articles <span class="arrow">&#9662;</span></a>
+            <ul class="dropdown-menu">
+              <li><a href="dreamscapes.html" class="active">Dreamscapes</a></li>
+              <li><a href="dailywonders.html">Daily Wonders</a></li>
+              <li><a href="cozycorner.html">Cozy Corner</a></li>
+            </ul>
+          </li>
+          <li><a href="portfolio.html">Art Portfolio</a></li>
+          <li><a href="admin.html" class="btn-admin">Creator Hub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="dreamscapes-header fade-in">
+      <h1 class="sparkle-title">Dreamscapes</h1>
+      <div class="cozy-buttons" style="justify-content: center;">
+        <button class="btn btn-secondary posts-tab-btn active" data-tag="all">All</button>
+        <!-- Dynamic tags will be loaded here -->
+        <div id="dynamic-tags-container" style="display: inline-flex; gap: 1rem;"></div>
+      </div>
+    </div>
+
+    <!-- Latest Posts Section -->
+    <section class="fade-in" style="padding-bottom: 2rem;">
+      <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem;">Latest Posts</h2>
+      <div class="horizontal-list-container">
+        <div class="horizontal-list" id="dreamscapes-latest-list">
+          <p class="loading-text" style="color: var(--color-muted);">Ink is flowing...</p>
+        </div>
+        <div class="list-arrow" id="latest-arrow">&rarr;</div>
+      </div>
+    </section>
+
+    <!-- Popular Section -->
+    <section class="fade-in" style="padding-top: 0; padding-bottom: 2rem;">
+      <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem;">Popular</h2>
+      <div class="horizontal-list-container">
+        <div class="horizontal-list" id="dreamscapes-popular-list">
+          <p class="loading-text" style="color: var(--color-muted);">Ink is flowing...</p>
+        </div>
+        <div class="list-arrow" id="popular-arrow">&rarr;</div>
+      </div>
+    </section>
+
+    <!-- Image Banner (Non-OC banner, beautiful backdrop) -->
+    <section class="fade-in" style="padding-top: 0; padding-bottom: 2rem;">
+      <div class="oc-character-banner" style="height: 140px; border-radius: var(--radius-md);">
+        <img src="/uploads/featured_artwork.jpg" alt="Dreamscapes Banner" style="object-position: center 30%;">
+        <div class="oc-banner-text" style="background: var(--bg-base); color: var(--color-primary); border-color: var(--color-primary);">Dreamscapes</div>
+      </div>
+    </section>
+
+    <!-- Highlighted Post #67 Section -->
+    <section class="fade-in highlighted-post-section" style="padding-top: 2rem;">
+      <h2 class="highlighted-post-title">Highlight: Post #67</h2>
+      <div class="highlighted-post-body" id="dreamscapes-highlight-post">
+        <p class="loading-text" style="color: var(--color-muted);">Brushing the canvas...</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Qunity<span>.space</span></div>
+      <p>Made with love, canvas, and code.</p>
+      <div class="copyright">&copy; 2026 Qunity. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/dreamscapes.js"></script>
+</body>
+</html>
