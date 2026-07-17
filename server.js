@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -6,6 +7,10 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
+
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY;
 
 // Enable CORS and body parsing
 app.use(cors());
@@ -209,6 +214,209 @@ app.post('/api/portfolio', upload.single('artImage'), (req, res) => {
     res.status(201).json({ message: 'Art piece added successfully!', artPiece: newArtPiece });
   } catch (error) {
     res.status(500).json({ error: 'Failed to add art piece', details: error.message });
+  }
+});
+
+// --- SUPABASE PORTFOLIO PIECES PROXY ENDPOINTS ---
+
+// GET /api/portfolio-pieces - Get all portfolio pieces from Supabase
+app.get('/api/portfolio-pieces', async (req, res) => {
+  try {
+    const url = `${SUPABASE_URL}/rest/v1/portfolio_pieces?select=*`;
+    const response = await fetch(url, {
+      headers: {
+        'apikey': SUPABASE_SERVICE_KEY,
+        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+      },
+    });
+    if (!response.ok) {
+      const text = await response.text();
+      return res.status(response.status).json({ error: 'Supabase query failed', details: text });
+    }
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch portfolio pieces', details: error.message });
+  }
+});
+
+// POST /api/portfolio-pieces - Create a new portfolio piece in Supabase
+app.post('/api/portfolio-pieces', upload.single('image'), async (req, res) => {
+  try {
+    const { title, description, tag, status } = req.body;
+    if (!title) {
+      return res.status(400).json({ error: 'Title is required.' });
+    }
+    if (!req.file) {
+      return res.status(400).json({ error: 'Image file is required.' });
+    }
+
+    // Upload image to Supabase storage
+    const fileExt = path.extname(req.file.originalname) || '.png';
+    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}${fileExt}`;
+    const uploadUrl = `${SUPABASE_URL}/storage/v1/object/portfolio-images/${fileName}`;
+    const imageBuffer = fs.readFileSync(req.file.path);
+
+    const uploadRes = await fetch(uploadUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+        'apikey': SUPABASE_SERVICE_KEY,
+        'Content-Type': req.file.mimetype || 'image/png',
+      },
+      body: imageBuffer,
+    });
+
+    if (!uploadRes.ok) {
+      const errText = await uploadRes.text();
+      return res.status(500).json({ error: 'Image upload failed', details: errText });
+    }
+
+    // Insert row into portfolio_pieces table
+    const insertUrl = `${SUPABASE_URL}/rest/v1/portfolio_pieces`;
+    const insertRes = await fetch(insertUrl, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_SERVICE_KEY,
+        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation',
+      },
+      body: JSON.stringify({
+        title,
+        description: description || '',
+        image_path: fileName,
+        tag: tag || 'personal',
+        status: status || 'draft',
+      }),
+    });
+
+    if (!insertRes.ok) {
+      const errText = await insertRes.text();
+      return res.status(500).json({ error: 'Database insert failed', details: errText });
+    }
+
+    const inserted = await insertRes.json();
+    res.status(201).json({ message: 'Piece created successfully!', piece: inserted[0] });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create portfolio piece', details: error.message });
+  } finally {
+    // Clean up temp file
+    if (req.file && fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
+  }
+});
+
+// PATCH /api/portfolio-pieces/:id - Update a portfolio piece (e.g. toggle featured)
+app.patch('/api/portfolio-pieces/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body;
+
+    const url = `${SUPABASE_URL}/rest/v1/portfolio_pieces?id=eq.${id}`;
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_SERVICE_KEY,
+        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify(updates),
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      return res.status(response.status).json({ error: 'Update failed', details: text });
+    }
+
+    res.json({ message: 'Piece updated successfully!' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update piece', details: error.message });
+  }
+});
+
+// POST /api/portfolio-pieces/:id/like - Increment likes on a piece
+app.post('/api/portfolio-pieces/:id/like', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // First get current likes
+    const getUrl = `${SUPABASE_URL}/rest/v1/portfolio_pieces?select=likes&id=eq.${id}`;
+    const getRes = await fetch(getUrl, {
+      headers: {
+        'apikey': SUPABASE_SERVICE_KEY,
+        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+      },
+    });
+    const getData = await getRes.json();
+    if (!getData || getData.length === 0) {
+      return res.status(404).json({ error: 'Piece not found' });
+    }
+
+    const currentLikes = getData[0].likes || 0;
+    const newLikes = currentLikes + 1;
+
+    // Update likes
+    const patchUrl = `${SUPABASE_URL}/rest/v1/portfolio_pieces?id=eq.${id}`;
+    const patchRes = await fetch(patchUrl, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_SERVICE_KEY,
+        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({ likes: newLikes }),
+    });
+
+    if (!patchRes.ok) {
+      const text = await patchRes.text();
+      return res.status(500).json({ error: 'Like failed', details: text });
+    }
+
+    res.json({ message: 'Liked!', likes: newLikes });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to like piece', details: error.message });
+  }
+});
+
+// POST /api/upload-inline-image - Upload an inline image for articles (to Supabase storage)
+app.post('/api/upload-inline-image', upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No image file provided.' });
+    }
+
+    const fileExt = path.extname(req.file.originalname) || '.png';
+    const fileName = `article-${Date.now()}-${Math.random().toString(36).substring(2, 9)}${fileExt}`;
+    const uploadUrl = `${SUPABASE_URL}/storage/v1/object/portfolio-images/${fileName}`;
+    const imageBuffer = fs.readFileSync(req.file.path);
+
+    const uploadRes = await fetch(uploadUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`,
+        'apikey': SUPABASE_SERVICE_KEY,
+        'Content-Type': req.file.mimetype || 'image/png',
+      },
+      body: imageBuffer,
+    });
+
+    if (!uploadRes.ok) {
+      const errText = await uploadRes.text();
+      return res.status(500).json({ error: 'Image upload failed', details: errText });
+    }
+
+    const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/portfolio-images/${fileName}`;
+    res.status(201).json({ url: publicUrl });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to upload image', details: error.message });
+  } finally {
+    if (req.file && fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
   }
 });
 

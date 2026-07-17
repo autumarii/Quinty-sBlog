@@ -249,7 +249,13 @@ async function showSinglePost(slug) {
 
 // Convert newline blocks into proper HTML paragraph blocks (if HTML tags not present)
 // Also handles basic Markdown styles if written (e.g. headers #, lists -, bold **)
+// Renders inline images marked as [img:URL]
 function formatContent(text) {
+  // First, replace [img:URL] tags with actual <img> tags (before other processing)
+  text = text.replace(/\[img:(https?:\/\/[^\]\s]+)\]/g, (match, url) => {
+    return `\n\n<img src="${url}" alt="Article image" class="article-inline-image" loading="lazy">\n\n`;
+  });
+
   // If the user entered HTML already (contains tags like <p>, <div>, <br>), don't alter it
   if (/<[a-z][\s\S]*>/i.test(text)) {
     return text;
@@ -260,6 +266,11 @@ function formatContent(text) {
   return lines.map(line => {
     let trimmed = line.trim();
     if (!trimmed) return '';
+
+    // Skip if it's already an img tag
+    if (trimmed.startsWith('<img')) {
+      return trimmed;
+    }
 
     // Handle Headers: # Title, ## Subtitle
     if (trimmed.startsWith('### ')) {

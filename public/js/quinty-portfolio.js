@@ -1,9 +1,9 @@
 // Quinty's Portfolio - public page logic
-// Fetches portfolio pieces from Supabase and renders Featured + All sections
+// Fetches portfolio pieces from server proxy and renders Featured + All sections
 
-let supabaseConfig = null;
 let allPieces = [];
 let activeTag = 'all';
+let supabaseUrl = '';
 
 document.addEventListener('DOMContentLoaded', () => {
   loadConfig().then(() => {
@@ -15,23 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadConfig() {
   try {
     const res = await fetch('/api/config');
-    supabaseConfig = await res.json();
+    const config = await res.json();
+    supabaseUrl = config.supabaseUrl || '';
   } catch (err) {
     console.error('Failed to load config:', err);
   }
 }
 
-function getSupabaseUrl() {
-  return supabaseConfig?.supabaseUrl || '';
-}
-
-function getSupabaseAnonKey() {
-  return supabaseConfig?.supabaseAnonKey || '';
-}
-
 function getImageUrl(path) {
   if (!path) return '';
-  return `${getSupabaseUrl()}/storage/v1/object/public/portfolio-images/${path}`;
+  return `${supabaseUrl}/storage/v1/object/public/portfolio-images/${path}`;
 }
 
 async function loadPortfolio() {
@@ -39,13 +32,8 @@ async function loadPortfolio() {
   const allGrid = document.getElementById('all-grid');
 
   try {
-    const url = `${getSupabaseUrl()}/rest/v1/portfolio_pieces?select=*`;
-    const res = await fetch(url, {
-      headers: {
-        'apikey': getSupabaseAnonKey(),
-        'Authorization': `Bearer ${getSupabaseAnonKey()}`,
-      },
-    });
+    const res = await fetch('/api/portfolio-pieces');
+    if (!res.ok) throw new Error('Failed to fetch');
     allPieces = await res.json();
 
     if (!Array.isArray(allPieces)) allPieces = [];
@@ -97,20 +85,17 @@ function getFeaturedPieces() {
     }
   });
 
-  // Sort remaining by likes desc, then by created_at desc
   remaining.sort((a, b) => {
     if (b.likes !== a.likes) return b.likes - a.likes;
     return new Date(b.created_at) - new Date(a.created_at);
   });
 
-  // Fill up to 4 slots
   const result = [...featured];
   for (const p of remaining) {
     if (result.length >= 4) break;
     result.push(p);
   }
 
-  // If fewer than 4, we already have all remaining
   return result.slice(0, 4);
 }
 
@@ -130,7 +115,6 @@ function renderFeatured() {
     grid.appendChild(createPieceCard(piece, true));
   });
 
-  // Fill remaining slots with placeholders
   for (let i = featured.length; i < 4; i++) {
     const ph = document.createElement('div');
     ph.className = 'quinty-featured-placeholder';
@@ -150,7 +134,6 @@ function renderAll() {
     return;
   }
 
-  // Sort by created_at desc
   pieces.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
   grid.innerHTML = '';
@@ -177,9 +160,27 @@ function createPieceCard(piece, isFeatured) {
       ${piece.description ? `<p class="quinty-piece-desc">${piece.description}</p>` : ''}
       <div class="quinty-piece-meta">
         <span class="quinty-piece-likes">&hearts; ${piece.likes || 0}</span>
+        <button class="quinty-like-btn" data-id="${piece.id}">Like</button>
       </div>
     </div>
   `;
+
+  const likeBtn = card.querySelector('.quinty-like-btn');
+  if (likeBtn) {
+    likeBtn.addEventListener('click', async () => {
+      likeBtn.disabled = true;
+      try {
+        const res = await fetch(`/api/portfolio-pieces/${piece.id}/like`, { method: 'POST' });
+        if (res.ok) {
+          const data = await res.json();
+          card.querySelector('.quinty-piece-likes').innerHTML = `&hearts; ${data.likes}`;
+          likeBtn.textContent = 'Liked!';
+        }
+      } catch (err) {
+        likeBtn.disabled = false;
+      }
+    });
+  }
 
   return card;
 }
