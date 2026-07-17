@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Portfolio Piece | Qunity's Space</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-new-art">
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">Qunity<span>.space</span></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-trigger">Articles <span class="arrow">&#9662;</span></a>
+            <ul class="dropdown-menu">
+              <li><a href="dreamscapes.html">Dreamscapes</a></li>
+              <li><a href="dailywonders.html">Daily Wonders</a></li>
+              <li><a href="cozycorner.html">Cozy Corner</a></li>
+            </ul>
+          </li>
+          <li><a href="quinty-portfolio.html">Quinty's Portfolio</a></li>
+          <li><a href="quinty-portfolio-admin.html" class="btn-admin active">Portfolio Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- New Art Form -->
+  <main>
+    <section class="fade-in new-art-section">
+      <div class="new-art-form-container">
+        <h1 class="new-art-form-title">New Portfolio <span class="script-word">pieces</span></h1>
+
+        <form id="new-art-form" class="new-art-form">
+          <!-- Title -->
+          <div class="new-art-form-group">
+            <label for="art-title" class="new-art-label">Title</label>
+            <input type="text" id="art-title" name="title" class="new-art-input" placeholder="Name your piece" required>
+          </div>
+
+          <!-- Description -->
+          <div class="new-art-form-group">
+            <label for="art-description" class="new-art-label">Description</label>
+            <textarea id="art-description" name="description" class="new-art-input new-art-textarea" placeholder="1-2 sentences about your piece" maxlength="300"></textarea>
+          </div>
+
+          <!-- Tag Selection -->
+          <div class="new-art-form-group">
+            <label class="new-art-label">Tag</label>
+            <div class="new-art-tag-row">
+              <button type="button" class="new-art-tag-btn active" data-tag="academic">ACADEMIC</button>
+              <button type="button" class="new-art-tag-btn" data-tag="personal">PERSONAL</button>
+            </div>
+          </div>
+
+          <!-- File Upload -->
+          <div class="new-art-form-group">
+            <label class="new-art-label">Upload Image</label>
+            <div class="new-art-upload-row">
+              <button type="button" class="new-art-upload-btn" id="upload-file-btn">Upload File</button>
+              <input type="file" id="art-file-input" accept="image/*" style="display: none;">
+              <span class="new-art-file-name" id="file-name-display">No file selected</span>
+            </div>
+            <div class="new-art-preview" id="image-preview" style="display: none;">
+              <img id="preview-img" src="#" alt="Preview">
+            </div>
+          </div>
+
+          <!-- Article Section -->
+          <div class="new-art-form-group new-art-article-section" id="article-section">
+            <div class="new-art-article-row">
+              <span class="new-art-article-label">Do you want to write an article?</span>
+              <div class="new-art-article-buttons">
+                <button type="button" class="new-art-article-btn yes" id="article-yes">Yes</button>
+                <button type="button" class="new-art-article-btn no" id="article-no">No</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="new-art-actions">
+            <button type="submit" class="new-art-publish-btn" id="publish-btn">Publish</button>
+            <button type="button" class="new-art-draft-btn" id="draft-btn">Send to Draft</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Qunity<span>.space</span></div>
+      <p>Made with love, canvas, and code.</p>
+      <div class="copyright">&copy; 2026 Qunity. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/new-art.js"></script>
+</body>
+</html>
